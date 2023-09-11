@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;com.array.basic.insert.delete.search&apos; to &apos;com.array.basic.insert.delete&apos;&#x0D;&#x0A;- Original project: &apos;gfg-array&apos;&#x0D;&#x0A;- Original element: &apos;gfg-array/src/com.array.basic.insert.delete.search&apos;&#x0D;&#x0A;- Renamed element: &apos;gfg-array/src/com.array.basic.insert.delete&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;com.array.basic.insert.delete.search&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;com.array.basic.insert.delete.search" name="com.array.basic.insert.delete" qualified="false" references="true" stamp="1693807389385" textual="false" version="1.0"/>
+</session>

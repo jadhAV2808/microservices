@@ -1,0 +1,8 @@
+package com.microservice.ext.services;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+@FeignClient(name="RATING-SERVICE")
+public class RatingService {
+
+}

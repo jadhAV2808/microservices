@@ -1,0 +1,12 @@
+
+server.port=9090
+spring.application.name=user-service
+
+#databaes configuration
+spring.data.mongodb.uri=mongodb+srv://JP:test@myfirstcluster.ip4di.mongodb.net/?retryWrites=true&w=majority
+spring.data.mongodb.database=user-service
+
+
+#eureka configuration
+eureka.client.fetch-service-reistry=true
+#eureka.instance.prefer-ip-address=true

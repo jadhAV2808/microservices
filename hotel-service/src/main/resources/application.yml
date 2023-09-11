@@ -1,0 +1,8 @@
+#server:
+#  port: 9091
+#  
+#spring:
+#  data:
+#    mongodb:
+#      uri: mongodb+srv://JP:test@myfirstcluster.ip4di.mongodb.net/?retryWrites=true&w=majority
+#      database: hotel-service

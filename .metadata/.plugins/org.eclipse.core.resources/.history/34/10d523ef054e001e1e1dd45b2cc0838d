@@ -1,0 +1,10 @@
+server.port=9092
+spring.application.name=RATING-SERVICE
+
+#databaes configuration
+spring.data.mongodb.uri=mongodb+srv://JP:test@myfirstcluster.ip4di.mongodb.net/?retryWrites=true&w=majority
+spring.data.mongodb.database=rating-service
+
+#eureka configuration
+eureka.client.fetch-service-reistry=true
+#eureka.instance.prefer-ip-address=true

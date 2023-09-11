@@ -1,0 +1,3 @@
+INDEX VERSION 1.132
+C:\Users\PJADHA20\Desktop\daily-practice\microservices\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3682005395.index
+\mail-based-sign-up-module\src\main\java

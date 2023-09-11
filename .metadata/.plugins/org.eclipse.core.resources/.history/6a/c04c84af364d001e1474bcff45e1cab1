@@ -1,0 +1,11 @@
+package com.microservice.config;
+
+import org.springframework.web.client.RestTemplate;
+
+public class BeanConfig {
+	
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+
+}

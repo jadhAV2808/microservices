@@ -1,0 +1,14 @@
+package com.microservice.services.imp;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.microservice.ext.services.RatingService;
+
+@Service
+public class FeignRatingServiceImpl {
+	
+	@Autowired
+	private RatingService ratingService;
+
+}

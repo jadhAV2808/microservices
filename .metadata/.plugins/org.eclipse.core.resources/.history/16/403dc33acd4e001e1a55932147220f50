@@ -1,0 +1,109 @@
+package com.microservice.services.imp;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.microservice.exception.ResourceNotFoundException;
+import com.microservice.models.Hotel;
+import com.microservice.models.Rating;
+import com.microservice.models.User;
+import com.microservice.repository.UserRepo;
+import com.microservice.services.UserService;
+
+@Service
+public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	private UserRepo userRepo;
+	
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	
+	
+	private Logger logger=LoggerFactory.getLogger(UserServiceImpl.class);
+	
+	
+	@Override
+	public User saveUser(User user) {
+		
+		String randomUserId =UUID.randomUUID().toString();
+		user.setUserId(randomUserId);
+		return userRepo.save(user);
+	}
+
+	@Override
+	public List<User> getAllUser() {
+		// TODO Auto-generated method stub
+		return userRepo.findAll();
+	}
+
+	@Override
+	public User getUser(String userId) {
+		// TODO Auto-generated method stub
+		//return userRepo.findByUserId(userId).orElseThrow(()-> new ResourceNotFoundException("User with given id is not found on server : "+userId ));
+		User user=userRepo.findByUserId(userId).orElseThrow(()-> new ResourceNotFoundException("User with given id is not found on server : "+userId ));
+		
+		//fetch rating of the above user from rating service
+		//http://localhost:9092/ratings/users/3e605e7c-bdb2-494d-bfbb-5be3734a596a
+		
+		
+		List<Rating> ratingsArr=restTemplate.getForObject("http://localhost:9092/ratings/users/"+userId , ArrayList.class);
+		
+		//Rating[] ratingsArr=restTemplate.getForObject("http://localhost:9092/ratings/users/"+userId , Rating[].class);
+		
+		//now we are removing host and port and adding service name
+		/*Rating[] ratingsArr=restTemplate.getForObject("http://RATING-SERVICE/ratings/users/"+userId , Rating[].class);
+		
+		
+		
+		logger.info("ratings----"+ ratingsArr);
+		
+		
+		//System.out.println("------------------"+ratingsArr );
+		
+		//now will convert array to list
+		List<Rating>ratingsList =Arrays.stream(ratingsArr).toList();
+		
+		System.out.println("ratings list---------"+ratingsList);
+		
+		//to get hotel for each rating
+		List<Rating> ratingsWithHotelInfo= ratingsList.stream().map(rating->{
+			//api call to hotel service to get hotel
+			//http://localhost:9091/hotels/1a5e00d1-c641-4949-9610-68e971c8e63a
+			
+			ResponseEntity<Hotel> resEntity =restTemplate.getForEntity("http://localhost:9091/hotels/"+ rating.getHotelId(), Hotel.class);
+			
+			//now we are removing host and port and adding service name
+			//ResponseEntity<Hotel> resEntity =restTemplate.getForEntity("http://HOTEL-SERVICE/hotels/"+ rating.getHotelId(), Hotel.class);
+			
+			
+			Hotel hotel = resEntity.getBody();
+			
+			logger.info("Response status code--"+ resEntity.getStatusCode());
+			System.out.println("hotel---------------  "+ hotel);
+			
+			//set the hotel to rating
+			rating.setHotel(hotel);
+			
+			//return the rating
+			return rating;
+			
+		}).collect(Collectors.toList());
+
+		user.setRatings(ratingsWithHotelInfo);*/
+		user.setRatings(ratingsArr);
+		return user;
+	}
+	
+	
+
+}

@@ -1,0 +1,15 @@
+package com.microservice.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.microservice.services.imp.FeignRatingServiceImpl;
+
+
+
+public class FeignRatingController {
+	
+	@Autowired 
+	private FeignRatingServiceImpl feignRatingServiceImpl;
+	
+
+}

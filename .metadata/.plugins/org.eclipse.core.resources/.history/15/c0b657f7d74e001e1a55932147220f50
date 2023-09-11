@@ -1,0 +1,5 @@
+package com.microservice.controllers;
+
+public class FeignRatingController {
+
+}

@@ -1,0 +1,5 @@
+package com.microservice.services.imp;
+
+public class FeignRatingServiceImpl {
+
+}
