@@ -17,6 +17,8 @@ import com.microservice.models.User;
 import com.microservice.services.UserService;
 import com.microservice.services.imp.FeignRatingServiceImpl;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -33,11 +35,31 @@ public class UserController {
 	
 	//get single user
 	@GetMapping("/{userId}")
+	@CircuitBreaker(name="ratingHotelBreaker", fallbackMethod="ratingHotelFallback")
 	public ResponseEntity<User> getSingleUser(@PathVariable String userId){
 		
 		User user1 = userService.getUser(userId);
 		return ResponseEntity.ok(user1);
 	}
+	
+	
+	
+	public ResponseEntity<User> ratingHotelFallback(String userId, Exception ex){
+		
+		System.out.println(" This Fallback is executed because service is down!!! ");
+		User user=new User();
+		user.setUserId("dummy123");
+		user.setName("Dummy");
+		user.setEmail("dummy@gmail.com");
+		user.setAbout("This user is created dummy because some of services are down...");
+		return new ResponseEntity<>(user, HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
+	
 	
 	//get single user
 	@GetMapping
