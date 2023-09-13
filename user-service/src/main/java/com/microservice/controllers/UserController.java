@@ -18,6 +18,7 @@ import com.microservice.services.UserService;
 import com.microservice.services.imp.FeignRatingServiceImpl;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 
 @RestController
 @RequestMapping("/users")
@@ -33,16 +34,25 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
+	int retryCount=1;
+	
 	//get single user
 	@GetMapping("/{userId}")
-	@CircuitBreaker(name="ratingHotelBreaker", fallbackMethod="ratingHotelFallback")
+	
+	/* now commenting this circuitBreaker annotation for retry  */
+	//@CircuitBreaker(name="ratingHotelBreaker", fallbackMethod="ratingHotelFallback")
+	
+	@Retry(name="ratingHotelRetry", fallbackMethod="ratingHotelFallback")
 	public ResponseEntity<User> getSingleUser(@PathVariable String userId){
+		
+		System.out.println("Retry count-----------------"+retryCount );
+		retryCount++;
 		
 		User user1 = userService.getUser(userId);
 		return ResponseEntity.ok(user1);
 	}
 	
-	
+
 	
 	public ResponseEntity<User> ratingHotelFallback(String userId, Exception ex){
 		
